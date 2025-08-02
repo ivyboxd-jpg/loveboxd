@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loveboxd - Our Love in Moments</title>
+    <style>
+        :root {
+            --primary-dark: #4A5568;
+            --secondary-dark: #2D3748;
+            --accent-green: #FFFFFF;
+            --text-white: #FFFFFF;
+            --rating-gold: #FFFFFF;
+            --text-dim: #E2E8F0;
+            --card-bg: #FFFFFF;
+            --card-radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Merriweather', serif;
+            font-weight: 400;
+            background-color: var(--primary-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            color: var(--text-white);
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 400;
+            letter-spacing: 0;
+        }
+        
+        .counter-container {
+            background-color: var(--secondary-dark);
+            padding: 20px;
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        #love-counter {
+            font-size: 3.5rem;
+            color: #ffffff; /* Updated color */
+            font-weight: 900; /* Updated font weight */
+            font-family: 'Lato', sans-serif; /* Updated font */
+            letter-spacing: 0;
+        }
+        
+        .counter-label {
+            font-size: 1rem;
+            color: var(--text-dim);
+            margin-top: 5px;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.5px;
+        }
+        
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .memory-card {
+            background-color: var(--secondary-dark);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .memory-card:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+        
+        .memory-title {
+            color: var(--text-white);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+        }
+        
+        .memory-date {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            font-family: 'Georgia', serif;
+        }
+        
+        .memory-rating {
+            margin: 15px 0;
+        }
+        
+        .star {
+            color: var(--rating-gold);
+            font-size: 1.4rem;
+            margin-right: 5px;
+        }
+        
+        .empty-star {
+            color: #555;
+        }
+        
+        .memory-review {
+            color: var(--text-dim);
+            font-style: italic;
+            line-height: 1.5;
+        }
+        
+        .graph-container {
+            background-color: var(--secondary-dark);
+            padding: 30px;
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            margin-top: 20px;
+        }
+        
+        .graph-title {
+            color: var(--text-white);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+        
+        #happiness-graph {
+            height: 300px;
+            position: relative;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .line-graph {
+            width: 100%;
+            height: 300px;
+            position: relative;
+        }
+        
+        .graph-line {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            width: calc(100% - 100px);
+            height: 2px;
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .graph-data-points {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            width: calc(100% - 100px);
+            height: 200px;
+        }
+        
+        .data-point {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--text-white);
+            border-radius: 50%;
+            transform: translate(-5px, -5px);
+        }
+        
+        .data-label {
+            position: absolute;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+        }
+        
+        @keyframes drawGraph {
+            0% { width: 0%; height: 0% }
+            100% { width: 100%; height: 100% }
+        }
+        
+        @media (max-width: 768px) {
+            .memory-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            #love-counter {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Loveboxd</h1>
+        <p>Our love in moments</p>
+    </header>
+    
+    <div class="counter-container">
+        <div id="love-counter">0</div>
+        <div class="counter-label">minutes loved since June 2, 2025</div>
+    </div>
+    
+    <div class="memory-grid">
+        <div class="memory-card">
+            <h2 class="memory-title">our first call</h2>
+            <div class="memory-date">
+                <span>Date: June 6, 2025</span>
+            </div>
+            <div class="memory-rating">
+                <span class="star">★★★★★</span>
+            </div>
+            <p class="memory-review">i don’t remember what i said, only that your voice was a sound i wanted stitched into every year of my life. my heart skipped a beat indeed.</p>
+        </div>
+        
+        <div class="memory-card">
+            <h2 class="memory-title">the first i love you</h2>
+            <div class="memory-date">
+                <span>Date: May 30, 2025</span>
+            </div>
+            <div class="memory-rating">
+                <span class="star">★★★★★</span>
+            </div>
+            <p class="memory-review">i didn’t plan it. you didn’t either. it just slipped out and every time you say you love me, it feels like the very first time again. please don't ever become a stranger whose laugh i could recognize anywhere.</p>
+        </div>
+        
+        <div class="memory-card">
+            <h2 class="memory-title">your sleepy science rambles</h2>
+            <div class="memory-date">
+                <span>Date: June 3, 2025</span>
+            </div>
+            <div class="memory-rating">
+                <span class="star">★★★★★</span>
+            </div>
+            <p class="memory-review">you were half-asleep and started explaining genetics and i fell in love like it was nothing. there’s something so tender about the way you talk when you’re sleepy, your voice goes soft and you don’t even realize how passionate you sound. and that night, you started talking about genes and whatever else, and i just laid there grinning like an idiot. the only DNA that i know about is a song by kendrick lamar.</p>
+        </div>
+        
+        <div class="memory-card">
+            <h2 class="memory-title">when you let me in</h2>
+            <div class="memory-date">
+                <span>Date: June 9, 2025</span>
+            </div>
+            <div class="memory-rating">
+                <span class="star">★★★★★</span>
+            </div>
+            <p class="memory-review">it wasn’t just vulnerability, it was sacred. you let the pink lights flicker between us, and i’ll guard that with everything I have. i won’t ever misuse it. loving you means holding space for all your versions, and i’ll do it. thank you for letting your guard down. i’ll never take it for granted.</p>
+        </div>
+    </div>
+    
+    <div class="graph-container">
+        <h2 class="graph-title">My Happiness Metric Since I Met You</h2>
+        <div id="happiness-graph">
+            <div class="line-graph">
+                <div class="graph-line"></div>
+                <div class="graph-data-points">
+                    <div class="data-point" style="left: 0%; bottom: 30%;"></div>
+                    <div class="data-point" style="left: 25%; bottom: 45%;"></div>
+                    <div class="data-point" style="left: 50%; bottom: 65%;"></div>
+                    <div class="data-point" style="left: 75%; bottom: 80%;"></div>
+                    <div class="data-point" style="left: 100%; bottom: 95%;"></div>
+                    <div class="data-label" style="left: 0%; bottom: 10px;">Before</div>
+                    <div class="data-label" style="left: 100%; bottom: 10px; text-align: right;">Now</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Real-time love counter
+        function updateLoveCounter() {
+            const startDate = new Date('June 1, 2024 00:00:00').getTime(); // Updated start date
+            const now = new Date().getTime();
+            const timeDifference = now - startDate;
+            const minutesLoved = Math.floor(timeDifference / (1000 * 60));
+            
+            document.getElementById('love-counter').textContent = minutesLoved.toLocaleString();
+        }
+        
+        // Initial update and set interval
+        updateLoveCounter();
+        setInterval(updateLoveCounter, 60000); // Update every minute
+        
+        // Simple animation effect for memory cards
+        document.querySelectorAll('.memory-card').forEach((card, index) => {
+            setTimeout(() => {
+                card.style.opacity = '1';
+            }, index * 150);
+        });
+    </script>
+</body>
+</html>
